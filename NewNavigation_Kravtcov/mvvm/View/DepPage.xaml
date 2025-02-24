@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewNavigation_Kravtcov.mvvm.View.DepPage"
+             Title="DepPage">
+    <StackLayout>
+        <Button Text="Back" Command="{Binding GoBackCommand}" />
+        <Entry Text="{Binding Department.Name}" Placeholder="Name" />
+        <Editor Text="{Binding Department.Notice}" Placeholder="Description" />
+        <Button Text="Save" Command="{Binding SaveCommand}" />
+        <Button Text="Cancel" Command="{Binding CancelCommand}" />
+    </StackLayout>
+</ContentPage>

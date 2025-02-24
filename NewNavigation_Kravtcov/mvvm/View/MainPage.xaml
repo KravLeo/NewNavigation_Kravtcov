@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewNavigation_Kravtcov.mvvm.View.MainPage"
+             xmlns:local="clr-namespace:NewNavigation_Kravtcov.mvvm.ViewModel"
+             Title="MainPage">
+    <StackLayout>
+        <Button Text="Go to Departments" Command="{Binding NavigateToDepartmentsCommand}" />
+        <Button Text="Go to Employees" Command="{Binding NavigateToEmployeesCommand}" />
+
+        <!-- ListView для отделов -->
+        <ListView ItemsSource="{Binding Departments}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Name}" VerticalOptions="Center" />
+                            <Label Text="{Binding Notice}" VerticalOptions="Center" />
+                            <Button Text="Delete" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}}, Path=DeleteDepartmentCommand}" 
+                                    CommandParameter="{Binding}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- CollectionView для сотрудников -->
+        <CollectionView ItemsSource="{Binding Employees}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding FirstName}" />
+                        <Label Text="{Binding LastName}" />
+                        <Label Text="{Binding Position}" />
+                        <Label Text="{Binding HireDate, StringFormat='{0:dd/MM/yyyy}'}" />
+                        <Label Text="{Binding Salary, StringFormat='{0:C}'}" />
+                        <Button Text="Delete" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}}, Path=DeleteEmployeeCommand}" 
+                                CommandParameter="{Binding}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
