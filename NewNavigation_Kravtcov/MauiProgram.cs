@@ -3,6 +3,10 @@ using NewNavigation_Kravtcov.mvvm.View;
 using NewNavigation_Kravtcov.mvvm.ViewModel;
 using NewNavigation_Kravtcov.mvvm.Model.FakeDB;
 using NewNavigation_Kravtcov.mvvm.Model;
+using NewNavigation_Kravtcov.mvvm.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace NewNavigation_Kravtcov;
 
@@ -17,26 +21,33 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+            });
 
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+        builder.Services.AddDbContext<RealDB>(options =>options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
         // Регистрация сервисов
         builder.Services.AddSingleton<FakeDB>();
+        builder.Services.AddSingleton<UserDB>();
         builder.Services.AddSingleton<Department>();
         builder.Services.AddSingleton<Employee>();
+        builder.Services.AddSingleton<User>();
 
         // Регистрация ViewModel
         builder.Services.AddTransient<MainViewModel>();
         builder.Services.AddTransient<DepartmentViewModel>();
         builder.Services.AddTransient<EmployeeViewModel>();
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<RegisterViewModel>();
+
 
         // Регистрация страниц
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<DepPage>();
         builder.Services.AddTransient<EmplPage>();
-
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<RegisterPage>();
         // Регистрация AppShell
         builder.Services.AddSingleton<AppShell>();
 

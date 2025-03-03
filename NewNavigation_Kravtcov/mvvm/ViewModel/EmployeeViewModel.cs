@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using NewNavigation_Kravtcov.mvvm.Model;
 using NewNavigation_Kravtcov.mvvm.Model.FakeDB;
+using NewNavigation_Kravtcov.mvvm.Data;
 
 namespace NewNavigation_Kravtcov.mvvm.ViewModel
 {
     public class EmployeeViewModel : INotifyPropertyChanged
     {
-        private readonly FakeDB fakedb;
+        //private readonly FakeDB fakedb;
+        private readonly DB fakedb;
         private readonly MainViewModel mainViewModel;
 
         private Employee employee;
@@ -28,32 +30,24 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
             }
         }
 
-        // Свойство для списка отделов
-        public ObservableCollection<Department> Departments { get; set; }
-
         public ICommand SaveCommand { get; }//Команда для сохранения
         public ICommand CancelCommand { get; }//Команда для отмены(неуверен что она работает)
         public ICommand GoBackCommand { get; }//Команда для возврата к основной странице
-
-        public EmployeeViewModel(Employee newEmployee, FakeDB fakeDB, MainViewModel mainVM)
+        public EmployeeViewModel(Employee employeeG, DB fakeDB /*RealDB contextDB*/, MainViewModel mainVM)
         {
-            employee = newEmployee;
+            employee = employeeG;
             fakedb = fakeDB;
             mainViewModel = mainVM;
 
-            // Инициализация списка отделов
-            Departments = mainVM.Departments;
-            //Инициализация комманд
             SaveCommand = new Command(async () => await SaveAsync());
             CancelCommand = new Command(Cancel);
             GoBackCommand = new Command(async () => await GoBackAsync());
         }
-        //Метод для возврата на основную страницу
+
         private async Task GoBackAsync()
         {
             await Shell.Current.GoToAsync("///MainPage");
         }
-        //Метод сохранения
         private async Task SaveAsync()
         {
             if (employee.Id == 0)
@@ -65,8 +59,9 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
             {
                 await fakedb.UpdateEmployeeAsync(employee);
             }
+            await Shell.Current.GoToAsync("///MainPage");
         }
-        //Метод отмены
+
         private void Cancel()
         {
             Employee = new Employee

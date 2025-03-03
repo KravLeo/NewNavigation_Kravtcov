@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace NewNavigation_Kravtcov.mvvm.Model
 {
-    //Модель отдела
-    public class Department
-    {   
+    public class User
+    {
         public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
-        public string Notice { get; set; }
-        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
     }
 }

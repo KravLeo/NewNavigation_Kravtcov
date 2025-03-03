@@ -9,7 +9,7 @@ namespace NewNavigation_Kravtcov
             InitializeComponent();
 
             MainPage = new AppShell();
-           
+            Shell.Current.GoToAsync("//LoginPage");
         }
     }
 }

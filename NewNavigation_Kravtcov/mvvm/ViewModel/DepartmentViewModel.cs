@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using NewNavigation_Kravtcov.mvvm.Data;
 using NewNavigation_Kravtcov.mvvm.Model;
 using NewNavigation_Kravtcov.mvvm.Model.FakeDB;
 
@@ -13,7 +14,8 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
 {
     public class DepartmentViewModel : INotifyPropertyChanged
     {
-        private readonly FakeDB fakedb;
+        //private readonly FakeDB fakedb;
+        private readonly DB fakedb;
         private readonly MainViewModel mainViewModel;
 
         private Department department;
@@ -27,27 +29,27 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
             }
         }
 
-        public ICommand SaveCommand { get; } //Команда для сохранения
-        public ICommand CancelCommand { get; } //Команда для отмены
+        public ICommand SaveCommand { get; }
+        public ICommand CancelCommand { get; }
+
         public ICommand GoBackCommand { get; } //Команда для возврата на основную страницу
 
-        public DepartmentViewModel(Department newdepartment, FakeDB fakeDB, MainViewModel mainVM)
+        public DepartmentViewModel(Department departmentG, DB fakeDB /*RealDB contextDB*/, MainViewModel mainVM)
         {
-            department = newdepartment;
-            fakedb = fakeDB;
+            department = departmentG;
             mainViewModel = mainVM;
-            //Инициализация команд
+            fakedb = fakeDB;
+
+
             SaveCommand = new Command(async () => await SaveAsync());
             CancelCommand = new Command(Cancel);
             GoBackCommand = new Command(async () => await GoBackAsync());
         }
-        //Метод для возврата на основную страницу
         private async Task GoBackAsync()
         {
             await Shell.Current.GoToAsync("///MainPage");
         }
 
-        //Метод сохранения
         private async Task SaveAsync()
         {
             if (department.Id == 0)
@@ -60,7 +62,7 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
                 await fakedb.UpdateDepartmentAsync(department);
             }
         }
-        //Метод отмены
+
         private void Cancel()
         {
             Department = new Department

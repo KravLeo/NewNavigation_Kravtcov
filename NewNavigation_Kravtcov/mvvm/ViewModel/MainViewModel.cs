@@ -8,37 +8,39 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using NewNavigation_Kravtcov.mvvm.Model;
+using NewNavigation_Kravtcov.mvvm.Data;
 using System.Windows.Input;
 using NewNavigation_Kravtcov.mvvm.View;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewNavigation_Kravtcov.mvvm.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public readonly FakeDB fakeDB;
+        private readonly DB fakeDB;
+        //private readonly IServiceProvider servProv;
         public ObservableCollection<Department> Departments { get; set; }
         public ObservableCollection<Employee> Employees { get; set; }
-
         public ICommand NavigateToDepartmentsCommand { get; }//Команда для перехода к странице отделов
         public ICommand NavigateToEmployeesCommand { get; } //Команда для перехода к странице сотрудников
         public ICommand DeleteDepartmentCommand { get; } // Команда для удаления отдела
         public ICommand DeleteEmployeeCommand { get; } // Команда для удаления сотрудника
 
-        public MainViewModel(FakeDB fakedb)
+        public MainViewModel(DB fakedb/*, IServiceProvider serviceProvider*/)
         {
+            //servProv = serviceProvider;
             fakeDB = fakedb;
             Departments = new ObservableCollection<Department>();
             Employees = new ObservableCollection<Employee>();
-            //Инициализация команд для навигации
             NavigateToDepartmentsCommand = new Command(async () => await NavigateToDepartmentsAsync());
             NavigateToEmployeesCommand = new Command(async () => await NavigateToEmployeesAsync());
-
             // Инициализация команд удаления
             DeleteDepartmentCommand = new Command<Department>(async (department) => await DeleteDepartmentAsync(department));
             DeleteEmployeeCommand = new Command<Employee>(async (employee) => await DeleteEmployeeAsync(employee));
-
             LoadDataAsync();
         }
+
         //Методы навигации
         private async Task NavigateToDepartmentsAsync()
         {
@@ -56,22 +58,17 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
             await Shell.Current.Navigation.PushAsync(emplPage);
         }
 
-        // Метод для удаления отдела
-        private async Task DeleteDepartmentAsync(Department department)
+        public async Task DeleteEmployeeAsync(Employee employee)
         {
-            //await fakeDB.DeleteDepartmentAsync(department.Id); 
-           Departments.Remove(department);
+            await fakeDB.DeleteEmployeeAsync(employee.Id);
+            Employees.Remove(employee); // Обновляем данные после удаления
         }
-
-        // Метод для удаления сотрудника
-        private async Task DeleteEmployeeAsync(Employee employee)
+        public async Task DeleteDepartmentAsync(Department department)
         {
-           //await fakeDB.DeleteEmployeeAsync(employee.Id);
-           Employees.Remove(employee);
+            await fakeDB.DeleteDepartmentAsync(department.Id);
+            Departments.Remove(department); // Обновляем данные после удаления
         }
-
-        //Загрузка всех отделов и сотрудников
-        private async Task LoadDataAsync()
+        public async Task LoadDataAsync()
         {
             var departments = await fakeDB.GetDepartmentsAsync();
             var employees = await fakeDB.GetEmployeesAsync();

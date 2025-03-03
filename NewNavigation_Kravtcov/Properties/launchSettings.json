@@ -4,5 +4,10 @@
       "commandName": "MsixPackage",
       "nativeDebugging": false
     }
+  },
+
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=NewNavigation_Kravtcov.db"
   }
+  
 }

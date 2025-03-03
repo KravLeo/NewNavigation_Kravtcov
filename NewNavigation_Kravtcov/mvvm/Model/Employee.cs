@@ -16,5 +16,6 @@ namespace NewNavigation_Kravtcov.mvvm.Model
         public int DepartmentId { get; set; }
         public DateTime HireDate { get; set; }
         public decimal Salary { get; set; }
+        public Department Department { get; set; }
     }
 }

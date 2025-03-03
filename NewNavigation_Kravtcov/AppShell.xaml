@@ -4,18 +4,46 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:NewNavigation_Kravtcov.mvvm.View"
-    Shell.FlyoutBehavior="Disabled"
+    FlyoutHeaderBehavior="CollapseOnScroll"
     Title="NewNavigation_Kravtcov">
+    <!-- Flyout Header -->
+    <Shell.FlyoutHeader>
+        <local:FlyoutHeaderView />
+    </Shell.FlyoutHeader>
+
+    <!-- Flyout Footer -->
+    <Shell.FlyoutFooter>
+        <local:FlyoutFooterView />
+    </Shell.FlyoutFooter>
+
+    <!-- Flyout Items -->
+    <FlyoutItem Title="Главная">
+        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Отделы">
+        <ShellContent Route="DepPage" ContentTemplate="{DataTemplate local:DepPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Сотрудники">
+        <ShellContent Route="EmplPage" ContentTemplate="{DataTemplate local:EmplPage}"/>
+    </FlyoutItem>
+
+    <!-- TabBar -->
+    <TabBar>
+        <Tab Title="Отделы">
+            <ShellContent Route="DepPage" ContentTemplate="{DataTemplate local:DepPage}" />
+        </Tab>
+        <Tab Title="Сотрудники">
+            <ShellContent Route="EmplPage" ContentTemplate="{DataTemplate local:EmplPage}" />
+        </Tab>
+    </TabBar>
     <ShellContent 
-        Title="Main" 
-        ContentTemplate="{DataTemplate local:MainPage}" 
-        Route="MainPage" />
+    Title="Login" 
+    ContentTemplate="{DataTemplate local:LoginPage}" 
+    Route="LoginPage" />
     <ShellContent 
-        Title="Departments" 
-        ContentTemplate="{DataTemplate local:DepPage}" 
-        Route="DepPage" />
-    <ShellContent 
-        Title="Employees" 
-        ContentTemplate="{DataTemplate local:EmplPage}" 
-        Route="EmplPage" />
+    Title="Register" 
+    ContentTemplate="{DataTemplate local:RegisterPage}" 
+    Route="RegisterPage" />
 </Shell>
