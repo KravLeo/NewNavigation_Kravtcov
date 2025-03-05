@@ -7,16 +7,6 @@
     FlyoutHeaderBehavior="CollapseOnScroll"
     Title="NewNavigation_Kravtcov">
     <!-- Flyout Header -->
-    <Shell.FlyoutHeader>
-        <local:FlyoutHeaderView />
-    </Shell.FlyoutHeader>
-
-    <!-- Flyout Footer -->
-    <Shell.FlyoutFooter>
-        <local:FlyoutFooterView />
-    </Shell.FlyoutFooter>
-
-    <!-- Flyout Items -->
     <FlyoutItem Title="Главная">
         <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
     </FlyoutItem>
@@ -28,7 +18,23 @@
     <FlyoutItem Title="Сотрудники">
         <ShellContent Route="EmplPage" ContentTemplate="{DataTemplate local:EmplPage}"/>
     </FlyoutItem>
+    
+    <FlyoutItem Title="Редактировани отдела">
+        <ShellContent Route="EditDepPage" ContentTemplate="{DataTemplate local:EditDepPage}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Редактирование сотрудника">
+        <ShellContent Route="EditEmplPage" ContentTemplate="{DataTemplate local:EditEmplPage}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Вход">
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </FlyoutItem>
+   
 
+    <FlyoutItem Title="Register" IsVisible="False" IsEnabled="False">
+        <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate local:RegisterPage}" />
+    </FlyoutItem>
     <!-- TabBar -->
     <TabBar>
         <Tab Title="Отделы">
@@ -39,11 +45,7 @@
         </Tab>
     </TabBar>
     <ShellContent 
-    Title="Login" 
-    ContentTemplate="{DataTemplate local:LoginPage}" 
-    Route="LoginPage" />
-    <ShellContent 
-    Title="Register" 
+    Title="" 
     ContentTemplate="{DataTemplate local:RegisterPage}" 
     Route="RegisterPage" />
 </Shell>

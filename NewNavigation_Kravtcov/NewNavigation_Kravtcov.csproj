@@ -83,6 +83,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="mvvm\View\EditDepPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="mvvm\View\EditEmplPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="mvvm\View\FlyoutFooterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

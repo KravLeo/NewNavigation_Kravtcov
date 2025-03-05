@@ -16,7 +16,7 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
     public class EmployeeViewModel : INotifyPropertyChanged
     {
         //private readonly FakeDB fakedb;
-        private readonly DB fakedb;
+        private readonly FakeDB fakedb;
         private readonly MainViewModel mainViewModel;
 
         private Employee employee;
@@ -33,7 +33,9 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
         public ICommand SaveCommand { get; }//Команда для сохранения
         public ICommand CancelCommand { get; }//Команда для отмены(неуверен что она работает)
         public ICommand GoBackCommand { get; }//Команда для возврата к основной странице
-        public EmployeeViewModel(Employee employeeG, DB fakeDB /*RealDB contextDB*/, MainViewModel mainVM)
+
+    public ICommand OnSaveCommand { get; }
+        public EmployeeViewModel(Employee employeeG, FakeDB fakeDB /*RealDB contextDB*/, MainViewModel mainVM)
         {
             employee = employeeG;
             fakedb = fakeDB;
@@ -42,6 +44,7 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
             SaveCommand = new Command(async () => await SaveAsync());
             CancelCommand = new Command(Cancel);
             GoBackCommand = new Command(async () => await GoBackAsync());
+            OnSaveCommand = new Command(async () => await OnSave());
         }
 
         private async Task GoBackAsync()
@@ -60,6 +63,14 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
                 await fakedb.UpdateEmployeeAsync(employee);
             }
             await Shell.Current.GoToAsync("///MainPage");
+        }
+
+        private async Task OnSave()
+        {
+            if (Employee != null)
+            {
+                await fakedb.UpdateEmployeeAsync(Employee);
+            }
         }
 
         private void Cancel()

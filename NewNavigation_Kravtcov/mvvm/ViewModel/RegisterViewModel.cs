@@ -14,12 +14,12 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
 {
     public class RegisterViewModel : INotifyPropertyChanged
     {
-        private readonly DB userDB;
+        private readonly UserDB userDB;
 
         public ICommand RegisterCommand { get; }
         public ICommand GoBackCommand { get; }
 
-        public RegisterViewModel(DB userdb)
+        public RegisterViewModel(UserDB userdb)
         {
             userDB = userdb;
             RegisterCommand = new Command(async () => await Register());

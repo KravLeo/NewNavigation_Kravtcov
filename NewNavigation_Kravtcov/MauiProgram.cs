@@ -26,7 +26,7 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-        builder.Services.AddDbContext<RealDB>(options =>options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+       
         // Регистрация сервисов
         builder.Services.AddSingleton<FakeDB>();
         builder.Services.AddSingleton<UserDB>();
@@ -48,6 +48,8 @@ public static class MauiProgram
         builder.Services.AddTransient<EmplPage>();
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<RegisterPage>();
+        builder.Services.AddTransient<EditDepPage>();
+        builder.Services.AddTransient<EditEmplPage>();
         // Регистрация AppShell
         builder.Services.AddSingleton<AppShell>();
 

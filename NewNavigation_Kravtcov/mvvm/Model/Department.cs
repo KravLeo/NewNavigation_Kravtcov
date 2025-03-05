@@ -12,6 +12,10 @@ namespace NewNavigation_Kravtcov.mvvm.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Notice { get; set; }
-        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+
+        public override string ToString()
+        {
+            return Name; // Возвращаем название отдела
+        }
     }
 }

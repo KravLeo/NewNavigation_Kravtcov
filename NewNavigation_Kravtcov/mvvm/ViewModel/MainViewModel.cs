@@ -18,7 +18,7 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private readonly DB fakeDB;
+        private readonly FakeDB fakeDB;
         //private readonly IServiceProvider servProv;
         public ObservableCollection<Department> Departments { get; set; }
         public ObservableCollection<Employee> Employees { get; set; }
@@ -27,7 +27,7 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
         public ICommand DeleteDepartmentCommand { get; } // Команда для удаления отдела
         public ICommand DeleteEmployeeCommand { get; } // Команда для удаления сотрудника
 
-        public MainViewModel(DB fakedb/*, IServiceProvider serviceProvider*/)
+        public MainViewModel(FakeDB fakedb/*, IServiceProvider serviceProvider*/)
         {
             //servProv = serviceProvider;
             fakeDB = fakedb;

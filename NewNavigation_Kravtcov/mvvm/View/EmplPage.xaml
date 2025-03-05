@@ -13,7 +13,7 @@
                 ItemDisplayBinding="{Binding Name}" />
         <DatePicker Date="{Binding Employee.HireDate}" />
         <Entry Text="{Binding Employee.Salary}" Placeholder="Salary" />
-        <Button Text="Save" Command="{Binding SaveCommand}" />
+        <Button Text="Save" Command="{Binding OnSaveCommand}" />
         <Button Text="Cancel" Command="{Binding CancelCommand}" />
     </StackLayout>
 </ContentPage>

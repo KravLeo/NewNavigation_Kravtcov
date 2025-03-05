@@ -16,13 +16,13 @@ namespace NewNavigation_Kravtcov.mvvm.ViewModel
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        private readonly DB userDB;
+        private readonly UserDB userDB;
 
         public ICommand LoginCommand { get; }
         public ICommand RegisterCommand { get; }
         public ICommand GuestLoginCommand { get; }
 
-        public LoginViewModel(DB db)
+        public LoginViewModel(UserDB db)
         {
             userDB = db;
             LoginCommand = new Command(async () => await Login());

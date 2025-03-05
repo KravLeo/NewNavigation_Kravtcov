@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewNavigation_Kravtcov.mvvm.View.EditEmplPage"
+             Title="EditEmplPage">
+    <StackLayout>
+        <Picker Title="Выберите сотрудника" ItemsSource="{Binding Employees}" SelectedItem="{Binding Employee}" />
+        <Entry Text="{Binding Employee.FirstName}" Placeholder="First Name" />
+            <Entry Text="{Binding Employee.LastName}" Placeholder="Last Name" />
+            <Entry Text="{Binding Employee.Position}" Placeholder="Position" />
+            <Picker  ItemsSource="{Binding Departments}" 
+             SelectedItem="{Binding Employee.DepartmentId}" 
+             ItemDisplayBinding="{Binding Name}" />
+            <DatePicker Date="{Binding Employee.HireDate}" />
+            <Entry Text="{Binding Employee.Salary}" Placeholder="Salary" />
+            <Button Text="Save" Command="{Binding OnSaveCommand}" />
+            <Button Text="Cancel" Command="{Binding CancelCommand}" />
+        </StackLayout>
+</ContentPage>
